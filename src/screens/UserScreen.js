@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Alert, Clipboard} from 'react-native';
 import { Color, Font } from '../styles/CommonStyle';
 import { inject, observer } from 'mobx-react';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 @inject('userDetailStore')
 @observer
@@ -23,7 +25,7 @@ class UserScreen extends Component {
     }
 
     render () {
-        const {userDetailStore} = this.props;
+        
         const {user} = this.props.navigation.state.params
         return (
             <View style={styles.container}>
@@ -42,15 +44,43 @@ class UserScreen extends Component {
                             <Text style={{color: 'white', fontSize: 14, textDecorationLine:'underline'}}>{user.email}</Text>
                         </TouchableOpacity>
 
-                        <View style={{width: "100%", marginVertical: 12}}>
-                            {this.renderTextWithIcon(userDetailStore.userAddress, 'location_city', () => {this.onLinkTextPressed('', userDetailStore.geoLocationURL)})}
-                            {this.renderTextWithIcon(userDetailStore.phone, 'phone', () => {this.onLinkTextPressed(userDetailStore.phone, userDetailStore.phoneURL)})}
-                            {this.renderTextWithIcon(userDetailStore.website, 'home', () => {this.onLinkTextPressed(userDetailStore.website, userDetailStore.websiteURL)})}
-                            {this.renderTextWithIcon(userDetailStore.companyName, 'copyright')}
-                        </View>
+                        {this.renderUserInformation()}
 
                     </View>
                 </ScrollView>
+
+                {this.renderFAB()}
+                
+            </View>
+        )
+    }
+
+    renderFAB() {
+        let menuIcon = () => <Icon name="md-menu" style={styles.actionButtonIcon} />
+
+        return (
+            <ActionButton buttonColor="rgba(231,76,60,1)" renderIcon={menuIcon} degrees={0}>
+                <ActionButton.Item buttonColor='#9b59b6' title="Post" onPress={this.onPostPressed}>
+                    <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#3498db' title="Album" onPress={this.onAlbumPressed}>
+                    <Icon name="md-images" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#1abc9c' title="Todo" onPress={this.onTodoPressed}>
+                    <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+            </ActionButton>
+        );
+    }
+
+    renderUserInformation() {
+        const {userDetailStore} = this.props;
+        return (
+            <View style={{width: "100%", marginVertical: 12}}>
+                {this.renderTextWithIcon(userDetailStore.userAddress, 'location_city', () => {this.onLinkTextPressed('', userDetailStore.geoLocationURL)})}
+                {this.renderTextWithIcon(userDetailStore.phone, 'phone', () => {this.onLinkTextPressed(userDetailStore.phone, userDetailStore.phoneURL)})}
+                {this.renderTextWithIcon(userDetailStore.website, 'home', () => {this.onLinkTextPressed(userDetailStore.website, userDetailStore.websiteURL)})}
+                {this.renderTextWithIcon(userDetailStore.companyName, 'copyright')}
             </View>
         )
     }
@@ -116,6 +146,7 @@ class UserScreen extends Component {
      */
     onTodoPressed = () => {
         //navigate to todo screen
+        console.warn("1")
     }
 
     /**
@@ -123,6 +154,7 @@ class UserScreen extends Component {
      */
     onAlbumPressed = () => {
         //navigate to album screen
+        console.warn("2")
     }
 
     /**
@@ -130,6 +162,7 @@ class UserScreen extends Component {
      */
     onPostPressed = () => {
         //navigate to post screen
+        console.warn("3")
     }
 }
 
@@ -160,5 +193,10 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         textAlign: 'center'
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
     }
 })

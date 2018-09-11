@@ -11,6 +11,8 @@
     "mobx-react": "^5.2.8",
     "react": "16.4.1",
     "react-native": "0.56.1",
+    "react-native-action-button": "^2.8.5",
+    "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.13.0"
   },
   "devDependencies": {
@@ -28,7 +30,7 @@
   },
   "rnpm": {
     "assets": [
-	"./assets/fonts/"
+      "./assets/fonts/"
     ]
-}
+  }
 }
