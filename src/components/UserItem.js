@@ -6,10 +6,10 @@ const ITEM_WIDTH = width/3;
 
 class UserItem extends Component {
     render () {
-        const {user} = this.props
+        const {user, onUserSelect} = this.props
         
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => onUserSelect(user)}>
                 <View style={[styles.container, {width: ITEM_WIDTH}]}>
                     <Text style={styles.avatar}>account_circle</Text>
                     <Text style={styles.userName} numberOfLines={3}>{user.name}</Text>
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     },
     avatar: {
         fontFamily: 'Material Icons',
+        color: 'white',
         fontSize: 64
     },
     userName: {

@@ -4,6 +4,9 @@ import ApiHelper from '../helpers/ApiHelper';
 class UserStore {
     @observable users = [];
 
+    /**
+     * Fetch users from API
+     */
     @action loadUsers() {
         ApiHelper.get('/users').then(users => {
             this.users = users;
