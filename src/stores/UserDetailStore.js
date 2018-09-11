@@ -5,11 +5,16 @@ class UserDetailStore {
     @observable posts = [];
     @observable todos = [];
     @observable albums = [];
+    @observable user = {};
 
     /**
      * Fetch users from API
      */
-    @action fetchUserDetail(userId) {
+    @action fetchUserDetail(user) {
+        this.user = user;
+
+        let userId = user.id;
+
         ApiHelper.get(`/users/${userId}/posts`).then(posts => {
             this.posts = posts;
         });
@@ -23,6 +28,74 @@ class UserDetailStore {
         });
     }
 
+    /**
+     * Return user address in format {street, suite, city}
+     */
+    @computed get userAddress(){
+        if(!this.user.address){
+            return "";
+        }
+
+        const {street, suite, city, zipcode} = this.user.address;
+
+        let address = '';
+
+        /**
+         * Append next path to current address, comma will only be added if current address is not empty
+         * @param {string} address Current address string
+         * @param {string} nextPath Next path of address
+         */
+        let appendAddress = (address, nextPath) => {
+            if(nextPath){
+                if(address.length > 0){
+                    address += ', ';
+                }
+                address += nextPath;
+            }
+
+            return address;
+        }
+
+        address = appendAddress(address, street);
+        address = appendAddress(address, suite);
+        address = appendAddress(address, city);
+
+        if(zipcode){
+            address = `${address} (${zipcode})`
+        }
+
+        return address;
+    }
+
+    @computed get geoLocationURL(){
+        if(!this.user.address){
+            return "";
+        }
+
+        const {lat, lng} = this.user.address.geo;
+        return `https://www.google.com/maps/@${lat},${lng},15z`
+    }
+    
+    @computed get phone(){
+        return this.user.phone;
+    }
+
+    @computed get website(){
+        return this.user.website;
+    }
+
+    @computed get phoneURL(){
+        return `tel:${this.user.phone.replace(/\D/g,'')}`;
+    }
+
+    @computed get websiteURL(){
+        return `http://${this.user.website}`;
+    }
+
+    @computed get companyName(){
+        return this.user.company ? this.user.company.name : "";
+    }
+    
     @computed get todoLength(){
         return this.todos.length;
     }
@@ -35,6 +108,7 @@ class UserDetailStore {
         this.posts = []
         this.todos = []
         this.albums = []
+        this.user = {}
     }
 }
 

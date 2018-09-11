@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import { Font } from '../styles/CommonStyle';
 
 const {width} = Dimensions.get('window');
 const ITEM_WIDTH = width/3;
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
         padding: 12
     },
     avatar: {
-        fontFamily: 'Material Icons',
+        fontFamily: Font.materialIcons,
         color: 'white',
         fontSize: 64
     },
