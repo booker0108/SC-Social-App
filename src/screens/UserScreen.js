@@ -56,17 +56,18 @@ class UserScreen extends Component {
     }
 
     renderFAB() {
+        const {userDetailStore} = this.props;
         let menuIcon = () => <Icon name="md-menu" style={styles.actionButtonIcon} />
 
         return (
             <ActionButton buttonColor="rgba(231,76,60,1)" renderIcon={menuIcon} degrees={0} autoInactive={false}>
-                <ActionButton.Item buttonColor='#9b59b6' title="Post" onPress={() => this.onSubMenuPress('Post')}>
+                <ActionButton.Item buttonColor='#9b59b6' title={`Post (${userDetailStore.postLength})`} onPress={() => this.onSubMenuPress('Post')}>
                     <Icon name="md-create" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title="Album" onPress={() => this.onSubMenuPress('Album')}>
+                <ActionButton.Item buttonColor='#3498db' title={`Album (${userDetailStore.albumLength})`} onPress={() => this.onSubMenuPress('Album')}>
                     <Icon name="md-images" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title="Todo" onPress={() => this.onSubMenuPress('Todo')}>
+                <ActionButton.Item buttonColor='#1abc9c' title={`Todo (${userDetailStore.todoLength})`} onPress={() => this.onSubMenuPress('Todo')}>
                     <Icon name="md-done-all" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
             </ActionButton>

@@ -100,6 +100,10 @@ class UserDetailStore {
         return this.user.company ? this.user.company.name : "";
     }
     
+    @computed get postLength(){
+        return this.posts.length;
+    }
+
     @computed get todoLength(){
         return this.todos.length;
     }
