@@ -16,9 +16,12 @@ class TodoScreen extends Component {
         const {userDetailStore, todoStore} = this.props;
         return (
             <View style={styles.container}>
+                <Text style={{textAlign: 'center', color: 'white', padding: 16, textDecorationLine:'underline', fontWeight: 'bold'}}>Swipe from left to right for quick action</Text>
                 <FlatList
-                    scrollEnabled={todoStore.isSwiping}
+                    scrollEnabled={!todoStore.isSwiping}
                     data={userDetailStore.todos}
+                    extraData={todoStore.todoCompleted}
+                    ItemSeparatorComponent={ () => <View style={{height: 1, flex: 1, backgroundColor: Color.bg_color_blue}} />}
                     keyExtractor={item => item.id.toString()}
                     renderItem={this.renderTodoItem} />
             </View>
@@ -33,10 +36,10 @@ class TodoScreen extends Component {
             <Swipeable 
                 leftContent={this.renderLeftContent(isCompleted)}
                 onLeftActionRelease={() => this.onTodoSwipAction(item)}
-                onSwipeStart={() => todoStore.isSwiping = true}
-                onSwipeRelease={() => todoStore.isSwiping = false}>
+                onSwipeStart={() => todoStore.startSwipe()}
+                onSwipeRelease={() => todoStore.finishSwipe()}>
 
-                <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 24}}>
+                <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#353335'}}>
                     <Text style={{fontFamily: Font.materialIcons, fontSize: 36, marginRight: 24, color: isCompleted ? '#40BA15' : 'transparent'}}>check_circle</Text>
                     <Text numberOfLines={3} style={{flex: 1, color: 'white', fontSize: 18}}>{item.title}</Text>
                 </View>

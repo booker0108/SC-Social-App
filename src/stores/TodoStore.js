@@ -4,12 +4,20 @@ class TodoStore {
     @observable isSwiping = false;
     @observable todoCompleted = {};
 
-    updateCompleted(todoId){
+    @action updateCompleted(todoId){
         this.todoCompleted[todoId] = !!!this.todoCompleted[todoId];
     }
 
     isTodoCompleted(todoId) {
         return !!this.todoCompleted[todoId]
+    }
+
+    @action startSwipe(){
+        this.isSwiping = true;
+    }
+
+    @action finishSwipe(){
+        this.isSwiping = false;
     }
 }
 
