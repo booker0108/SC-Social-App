@@ -16,12 +16,12 @@ class TodoScreen extends Component {
         const {userDetailStore, todoStore} = this.props;
         return (
             <View style={styles.container}>
-                <Text style={{textAlign: 'center', color: 'white', padding: 16, textDecorationLine:'underline', fontWeight: 'bold'}}>Swipe from left to right for quick action</Text>
+                <Text style={styles.quickActionText}>Swipe from left to right for quick action</Text>
                 <FlatList
                     scrollEnabled={!todoStore.isSwiping}
                     data={userDetailStore.todos}
                     extraData={todoStore.todoCompleted}
-                    ItemSeparatorComponent={ () => <View style={{height: 1, flex: 1, backgroundColor: Color.bg_color_blue}} />}
+                    ItemSeparatorComponent={ () => <View style={styles.divider} />}
                     keyExtractor={item => item.id.toString()}
                     renderItem={this.renderTodoItem} />
             </View>
@@ -34,29 +34,33 @@ class TodoScreen extends Component {
         const isCompleted = item.completed || todoStore.isTodoCompleted(item.id)
         return (
             <Swipeable 
-                leftContent={this.renderLeftContent(isCompleted)}
-                onLeftActionRelease={() => this.onTodoSwipAction(item)}
+                leftContent={this.renderLeftQuickActionContent(isCompleted)}
+                onLeftActionRelease={() => this.onTodoSwipeAction(item)}
                 onSwipeStart={() => todoStore.startSwipe()}
                 onSwipeRelease={() => todoStore.finishSwipe()}>
 
-                <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#353335'}}>
-                    <Text style={{fontFamily: Font.materialIcons, fontSize: 36, marginRight: 24, color: isCompleted ? '#40BA15' : 'transparent'}}>check_circle</Text>
-                    <Text numberOfLines={3} style={{flex: 1, color: 'white', fontSize: 18}}>{item.title}</Text>
+                <View style={styles.todoContainer}>
+                    <Text style={[styles.statusIconText, {color: isCompleted ? '#40BA15' : 'transparent'}]}>check_circle</Text>
+                    <Text numberOfLines={3} style={styles.todoTitleText}>{item.title}</Text>
                 </View>
 
             </Swipeable>
         )
     }
 
-    renderLeftContent = (isCompleted) => {
+    renderLeftQuickActionContent = (isCompleted) => {
         return (
-            <View style={{flex: 1, backgroundColor: isCompleted ? '#DD5347':'#40BA15', alignItems: 'flex-end', justifyContent: 'center'}}>
-                <Text style={{fontFamily: Font.materialIcons, fontSize: 36, marginRight: 24, color: 'white'}}>{isCompleted? 'close':'check'}</Text>
+            <View style={[styles.quickActionContainer, {backgroundColor: isCompleted ? '#DD5347':'#40BA15'}]}>
+                <Text style={styles.quickActionIconText}>{isCompleted? 'close':'check'}</Text>
             </View>
         )
     }
 
-    onTodoSwipAction = (todo) => {
+    /**
+     * Swipable quick action callback when releasing the item
+     * @param {object} todo Selected todo item
+     */
+    onTodoSwipeAction = (todo) => {
         const {todoStore} = this.props;
 
         todoStore.updateCompleted(todo.id)
@@ -69,5 +73,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Color.bg_color_blue
-    }
+    },
+    quickActionText: {textAlign: 'center', color: 'white', padding: 16, textDecorationLine:'underline', fontWeight: 'bold'},
+    divider: {height: 1, flex: 1, backgroundColor: Color.bg_color_blue},
+    todoContainer: {flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#353335'},
+    statusIconText: {fontFamily: Font.materialIcons, fontSize: 36, marginRight: 24},
+    todoTitleText: {flex: 1, color: 'white', fontSize: 18},
+    quickActionContainer: {flex: 1, alignItems: 'flex-end', justifyContent: 'center'},
+    quickActionIconText: {fontFamily: Font.materialIcons, fontSize: 36, marginRight: 24, color: 'white'}
+    
 })
