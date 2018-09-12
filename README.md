@@ -12,7 +12,7 @@ Showing a list of friends and friends related:
 ## Getting Started
 In order to run this project, react-native related plugins have to be installed
 
-###Dependecies
+### Dependecies
 ##### 1.Node, Watchman
 
 ```
