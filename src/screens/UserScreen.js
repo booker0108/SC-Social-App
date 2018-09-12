@@ -25,22 +25,22 @@ class UserScreen extends Component {
     }
 
     render () {
-        
+        const {userDetailStore} = this.props;
         const {user} = this.props.navigation.state.params
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    <View style={{flex: 1, alignItems: 'center', padding: 8}}>
+                    <View style={styles.userBasicContainer}>
                         <View style={styles.userInfo}>
                             {/* {this.renderDetailButton(`${userDetailStore.todoLength}\nTodo(s)`, this.onTodoPressed)} */}
                             <Text style={styles.avatar}>account_circle</Text>
                             {/* {this.renderDetailButton(`${userDetailStore.albumLength}\nAlbum(s)`, this.onAlbumPressed)} */}
                         </View>
 
-                        <Text style={{color: 'white', fontSize: 24}}>{user.name}</Text>
-                        <Text style={{color: 'white', fontSize: 14}}>({user.username})</Text>
+                        <Text style={styles.nameText}>{user.name}</Text>
+                        <Text style={styles.usernameText}>({user.username})</Text>
                         
-                        <TouchableOpacity onPress={() => this.onEmailPressed(user.email)}>
+                        <TouchableOpacity onPress={() => this.onLinkTextPressed(user.email, userDetailStore.emailURL)}>
                             <Text style={{color: 'white', fontSize: 14, textDecorationLine:'underline'}}>{user.email}</Text>
                         </TouchableOpacity>
 
@@ -76,7 +76,7 @@ class UserScreen extends Component {
     renderUserInformation() {
         const {userDetailStore} = this.props;
         return (
-            <View style={{width: "100%", marginVertical: 12}}>
+            <View style={styles.inforContainer}>
                 {this.renderTextWithIcon(userDetailStore.userAddress, 'location_city', () => {this.onLinkTextPressed('', userDetailStore.geoLocationURL)})}
                 {this.renderTextWithIcon(userDetailStore.phone, 'phone', () => {this.onLinkTextPressed(userDetailStore.phone, userDetailStore.phoneURL)})}
                 {this.renderTextWithIcon(userDetailStore.website, 'home', () => {this.onLinkTextPressed(userDetailStore.website, userDetailStore.websiteURL)})}
@@ -85,25 +85,12 @@ class UserScreen extends Component {
         )
     }
 
-    async onLinkTextPressed(value, url){
-        if(await Linking.canOpenURL(url)){
-            Linking.openURL(url);
-        }else {
-            if(value){
-                Clipboard.setString(value);
-                Alert.alert(`Cannot perform action, ${value} is copied to clipboard`);
-            } else {
-                Alert.alert(`Cannot perform action`);
-            }
-        }
-    }
-
     renderTextWithIcon(text, icon, callback) {
         return (
             <TouchableOpacity onPress={() => callback && callback()}>
-                <View style={{width: "100%", flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 4}}>
-                    <Text style={{fontFamily: Font.materialIcons, color: 'white', fontSize: 24, paddingHorizontal: 18}}>{icon}</Text>
-                    <Text style={{flex: 1, color: 'white', fontSize: 16}}>{text}</Text>
+                <View style={styles.textIconContainer}>
+                    <Text style={styles.infoIcon}>{icon}</Text>
+                    <Text style={styles.infoText}>{text}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -126,18 +113,21 @@ class UserScreen extends Component {
     }
 
     /**
-     * Open Email client with target receipent's email address
-     * Email address will be copied to clipboard if email client is not available
-     * @param {string} email Email address of the user
+     * Open URL (tel, mailto, http) action
+     * Copy value to clipboard if failed to open URL
+     * @param {string} value Original value of field
+     * @param {string} url Formatted value as URL
      */
-    onEmailPressed = async (email) => {
-        let url = `mailto::${email}`;
+    async onLinkTextPressed(value, url){
         if(await Linking.canOpenURL(url)){
             Linking.openURL(url);
         }else {
-            Clipboard.setString(email);
-            Alert.alert(`Cannot open Email Client, Email(${email}) is copy to clipboard`);
-
+            if(value){
+                Clipboard.setString(value);
+                Alert.alert(`Cannot perform action, ${value} is copied to clipboard`);
+            } else {
+                Alert.alert(`Cannot perform action`);
+            }
         }
     }
 
@@ -173,6 +163,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Color.bg_color_blue
     },
+    userBasicContainer: {
+        flex: 1, 
+        alignItems: 'center', 
+        padding: 8
+    },
     userInfo: {
         flex: 1,
         alignItems: 'center',
@@ -186,6 +181,14 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 128
     },
+    nameText: {
+        color: 'white', 
+        fontSize: 24
+    },
+    usernameText: {
+        color: 'white', 
+        fontSize: 14
+    },
     buttonContainer: {
         borderRadius: 99, 
         backgroundColor: 'white', 
@@ -198,5 +201,27 @@ const styles = StyleSheet.create({
         fontSize: 20,
         height: 22,
         color: 'white',
+    },
+    inforContainer: {
+        width: "100%", 
+        marginVertical: 12
+    },
+    textIconContainer: {
+        width: "100%", 
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        paddingVertical: 4
+    },
+    infoIcon: {
+        fontFamily: Font.materialIcons, 
+        color: 'white', 
+        fontSize: 24, 
+        paddingHorizontal: 18
+    },
+    infoText: {
+        flex: 1, 
+        color: 'white', 
+        fontSize: 16
     }
 })

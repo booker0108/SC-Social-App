@@ -67,6 +67,10 @@ class UserDetailStore {
         return address;
     }
 
+    @computed get emailURL(){
+        return `mailto:${this.user.email}`
+    }
+
     @computed get geoLocationURL(){
         if(!this.user.address){
             return "";
