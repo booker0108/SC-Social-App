@@ -39,7 +39,9 @@ class AlbumScreen extends Component {
      * @param {object} album Selected album
      */
     onAlbumPress = (album) => {
-
+        const {photoStore, navigation} = this.props;
+        photoStore.fetchPhotos(album.id)
+        navigation.navigate('AlbumDetail', {album});
     }
 }
 
