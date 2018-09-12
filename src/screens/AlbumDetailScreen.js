@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity, Image} from 'react-native'
 import { Color } from '../styles/CommonStyle';
 import { inject, observer } from 'mobx-react';
+import FastImage from 'react-native-fast-image';
 
 const {width} = Dimensions.get('window');
 const NUMBER_OF_COLUMN = 2;
@@ -32,7 +33,7 @@ class AlbumDetailScreen extends Component {
     renderPhotoThumbnail = ({item}) => {
         return (
             <TouchableOpacity>
-                <Image style={{width: THUMBNAIL_SIZE, height: THUMBNAIL_SIZE}}
+                <FastImage style={{width: THUMBNAIL_SIZE, height: THUMBNAIL_SIZE}}
                     source={{uri: item.thumbnailUrl}} />
             </TouchableOpacity>
         )

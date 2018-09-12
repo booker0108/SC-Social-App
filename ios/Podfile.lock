@@ -1,6 +1,7 @@
 PODS:
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.5)
+  - FLAnimatedImage (1.0.12)
   - Folly (2016.10.31.00):
     - boost-for-react-native
     - DoubleConversion
@@ -8,6 +9,11 @@ PODS:
   - glog (0.3.4)
   - React (0.56.1):
     - React/Core (= 0.56.1)
+  - react-native-fast-image (5.0.3):
+    - FLAnimatedImage
+    - React
+    - SDWebImage/Core
+    - SDWebImage/GIF
   - React/Core (0.56.1):
     - yoga (= 0.56.1.React)
   - React/CxxBridge (0.56.1):
@@ -32,6 +38,9 @@ PODS:
     - React/Core
   - React/RCTBlob (0.56.1):
     - React/Core
+  - React/RCTImage (0.56.1):
+    - React/Core
+    - React/RCTNetwork
   - React/RCTNetwork (0.56.1):
     - React/Core
   - React/RCTText (0.56.1):
@@ -42,16 +51,22 @@ PODS:
     - React/RCTBlob
   - RNVectorIcons (5.0.0):
     - React
+  - SDWebImage/Core (4.4.1)
+  - SDWebImage/GIF (4.4.1):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - yoga (0.56.1.React)
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
@@ -67,6 +82,8 @@ EXTERNAL SOURCES:
     :podspec: ../node_modules/react-native/third-party-podspecs/glog.podspec
   React:
     :path: ../node_modules/react-native
+  react-native-fast-image:
+    :path: ../node_modules/react-native-fast-image
   RNVectorIcons:
     :path: ../node_modules/react-native-vector-icons
   yoga:
@@ -75,12 +92,15 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: a9706f16e388b53ff12cca34473428ee29746a26
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
   glog: b3b0330915eccea41c5cc9731a77cf564a9be5ea
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
+  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: b7633520dd1f7bc9a91149502c0a7fa9569547fe
+PODFILE CHECKSUM: 3f30fe462ab77006cfecec6a5092b4d5e620d10a
 
 COCOAPODS: 1.4.0
