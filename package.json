@@ -13,6 +13,7 @@
     "react-native": "0.56.1",
     "react-native-action-button": "^2.8.5",
     "react-native-fast-image": "^5.0.3",
+    "react-native-image-zoom-viewer": "^2.2.18",
     "react-native-swipeable": "^0.6.0",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.13.0"
