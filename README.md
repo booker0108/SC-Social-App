@@ -16,7 +16,7 @@ In order to run this project, react-native related plugins have to be installed
 ##### 1.Node, Watchman
 
 ```
-brew install node &&
+brew install node
 brew install watchman
 ```
 
