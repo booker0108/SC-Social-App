@@ -59,14 +59,14 @@ class UserScreen extends Component {
         let menuIcon = () => <Icon name="md-menu" style={styles.actionButtonIcon} />
 
         return (
-            <ActionButton buttonColor="rgba(231,76,60,1)" renderIcon={menuIcon} degrees={0}>
-                <ActionButton.Item buttonColor='#9b59b6' title="Post" onPress={this.onPostPressed}>
+            <ActionButton buttonColor="rgba(231,76,60,1)" renderIcon={menuIcon} degrees={0} autoInactive={false}>
+                <ActionButton.Item buttonColor='#9b59b6' title="Post" onPress={() => this.onSubMenuPress('Post')}>
                     <Icon name="md-create" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title="Album" onPress={this.onAlbumPressed}>
+                <ActionButton.Item buttonColor='#3498db' title="Album" onPress={() => this.onSubMenuPress('Album')}>
                     <Icon name="md-images" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title="Todo" onPress={this.onTodoPressed}>
+                <ActionButton.Item buttonColor='#1abc9c' title="Todo" onPress={() => this.onSubMenuPress('Todo')}>
                     <Icon name="md-done-all" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
             </ActionButton>
@@ -132,27 +132,11 @@ class UserScreen extends Component {
     }
 
     /**
-     * Callback function when pressing on Todo button
+     * Callback function when pressing on sub menu button
      */
-    onTodoPressed = () => {
-        //navigate to todo screen
-        console.warn("1")
-    }
-
-    /**
-     * Callback function when pressing on Album button
-     */
-    onAlbumPressed = () => {
-        //navigate to album screen
-        console.warn("2")
-    }
-
-    /**
-     * Callback function when pressing on Post button
-     */
-    onPostPressed = () => {
-        //navigate to post screen
-        console.warn("3")
+    onSubMenuPress = (route) => {
+        const {navigation} = this.props;
+        navigation.navigate(route);
     }
 }
 
@@ -204,7 +188,8 @@ const styles = StyleSheet.create({
     },
     inforContainer: {
         width: "100%", 
-        marginVertical: 12
+        marginVertical: 12,
+        marginTop: 24
     },
     textIconContainer: {
         width: "100%", 
