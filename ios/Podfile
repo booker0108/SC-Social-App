@@ -15,6 +15,7 @@ target 'SC_Social_App' do
     'RCTWebSocket', # Needed for debugging
     'RCTAnimation', # Needed for FlatList and animations running on native UI thread
     # Add any other subspecs you want to use in your project
+    'RCTImage',
   ]
   # Explicitly include Yoga if you are using RN >= 0.42.0
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
@@ -24,4 +25,7 @@ target 'SC_Social_App' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
+
 end
